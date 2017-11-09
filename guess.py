@@ -1,36 +1,21 @@
 import random
+from common_input import input_int, input_yes_no
 
 # The range of numbers to guess from
 MIN = 1
 MAX = 100
 
 
-def user_guess():
-    """
-    :return: An int for the user's guess, between MIN and MAX (inclusive)
-    """
-    error_prompt = f"I'm looking for a number between {MIN} and {MAX}"
-    while True:
-        try:
-            result = int(input("What's your guess? "))
-            if result < MIN or result > MAX:
-                print(error_prompt)
-            else:
-                return result
-        except ValueError:
-            print(error_prompt)
-
-
 def play_game():
     """
-    Plays one round of the guessing the game.  The user can guess as many times as needed to guess a
+    Plays one round of the guessing game.  The user can guess as many times as needed to guess a
     number between MIN and MAX.
     """
     number = random.randint(MIN, MAX)
     guess = 0
     print(f"I am thinking of a number between {MIN} and {MAX}.")
     while number != guess:
-        guess = user_guess()
+        guess = input_int("What's your guess? ", MIN, MAX)
         if number > guess:
             print("My number is higher than that.")
         elif number < guess:
@@ -39,13 +24,9 @@ def play_game():
 
 
 random.seed()
-play_game()
 while True:
-    prompt = input("Would you like to play again? ")
-    if prompt and prompt[0] == 'y':
-        play_game()
-    elif prompt and prompt[0] == 'n':
+    play_game()
+    play_again = input_yes_no("Would you like to play again? ")
+    if not play_again:
         break
-    else:
-        print("I didn't understand - please respond yes or no.")
 print("Thank you for playing!")
