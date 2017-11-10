@@ -1,5 +1,6 @@
 import random
-from common_input import input_int, input_yes_no
+from common_input import input_int
+from common import game_loop
 
 # The range of numbers to guess from
 MIN = 1
@@ -24,9 +25,4 @@ def play_game():
 
 
 random.seed()
-while True:
-    play_game()
-    play_again = input_yes_no("Would you like to play again? ")
-    if not play_again:
-        break
-print("Thank you for playing!")
+game_loop(play_game)
