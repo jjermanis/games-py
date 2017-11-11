@@ -22,10 +22,10 @@ def generate_maze(width, height):
     # Initialize grid.  Start state is with each cell having no openings.
     grid = [[0 for _ in range(width+2)] for _ in range(height+2)]
 
-    for x in range(0,width+2):
+    for x in range(0, width+2):
         grid[0][x] = LEFT+RIGHT+UP
         grid[height+1][x] = LEFT+RIGHT+DOWN
-    for y in range(0,height+2):
+    for y in range(0, height+2):
         grid[y][0] |= LEFT+UP+DOWN
         grid[y][width+1] |= RIGHT+UP+DOWN
 
@@ -50,6 +50,7 @@ def fill_maze_from(x, y, grid):
     connected in the same network.
     :return: Grid with values for open passage ways
     """
+    #TODO: convert to iterative to avoid stack overflow
     directions = [(x - 1, y, LEFT, RIGHT), (x, y + 1, DOWN, UP), (x + 1, y, RIGHT, LEFT), (x, y - 1, UP, DOWN)]
     random.shuffle(directions)
     for new_x, new_y, direction, opposite in directions:
