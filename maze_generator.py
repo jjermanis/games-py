@@ -20,17 +20,26 @@ FLOOR_COLOR = (255, 255, 255)
 
 def generate_maze(width, height):
     # Initialize grid.  Start state is with each cell having no openings.
-    grid = [[0 for _ in range(width)] for _ in range(height)]
+    grid = [[0 for _ in range(width+2)] for _ in range(height+2)]
+
+    for x in range(0,width+2):
+        grid[0][x] = LEFT+RIGHT+UP
+        grid[height+1][x] = LEFT+RIGHT+DOWN
+    for y in range(0,height+2):
+        grid[y][0] |= LEFT+UP+DOWN
+        grid[y][width+1] |= RIGHT+UP+DOWN
 
     # Generate maze from random starting point on the top.
-    maze_start = random.randint(1, width-2)
-    grid = fill_maze_from(maze_start, 0, grid)
+    maze_start = random.randint(1, width-1)
+    grid = fill_maze_from(maze_start, 1, grid)
 
     # Create an opening on top and bottom.
     # TODO: be smart about where to put bottom exit to maximize maze length
-    grid[0][maze_start] += UP
-    maze_end = random.randint(0, width-1)
-    grid[height-1][maze_end] += DOWN
+    grid[1][maze_start] += UP
+    grid[0][maze_start] += DOWN
+    maze_end = random.randint(2, width-1)
+    grid[height][maze_end] += DOWN
+    grid[height+1][maze_end] += UP
 
     return grid
 
@@ -44,10 +53,10 @@ def fill_maze_from(x, y, grid):
     directions = [(x - 1, y, LEFT, RIGHT), (x, y + 1, DOWN, UP), (x + 1, y, RIGHT, LEFT), (x, y - 1, UP, DOWN)]
     random.shuffle(directions)
     for new_x, new_y, direction, opposite in directions:
-        if 0 <= new_x <= len(grid[0]) - 1 and 0 <= new_y <= len(grid) - 1 and grid[new_y][new_x] == 0:
+        if 1 <= new_x <= len(grid[0]) - 2 and 1 <= new_y <= len(grid) - 2 and grid[new_y][new_x] == 0:
             grid[y][x] += direction
             grid[new_y][new_x] = opposite
-            fill_maze_from(new_x, new_y, grid)
+            grid = fill_maze_from(new_x, new_y, grid)
     return grid
 
 
@@ -59,7 +68,6 @@ def convert_to_bitmap(maze):
     # Initialize the bitmap.  Each maze cell is CELL_WIDTH squared.
     pixel_grid = [[FLOOR_COLOR for _ in range(CELL_WIDTH * len(maze[0]))] for _ in range(CELL_WIDTH * len(maze))]
 
-    # TODO: add special handling for exterior wall to make it thicker.  Maybe add a margin too
     for maze_y in range(len(maze)):
         for maze_x in range(len(maze[0])):
             # For each cell, draw walls.  Remember the data in each cell denotes PATHWAYS not walls
