@@ -12,6 +12,7 @@ def play_game():
     Plays one round of the guessing game.  The user can guess as many times as needed to guess a
     number between MIN and MAX.
     """
+    # TODO: implement move limit... ceiling of lg(range)... 7 moves for 1-100
     number = random.randint(MIN, MAX)
     guess = 0
     print(f"I am thinking of a number between {MIN} and {MAX}.")
