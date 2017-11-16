@@ -28,3 +28,12 @@ def input_yes_no(prompt):
             return False
         else:
             print("Not understood - please respond yes or no.")
+
+
+def input_letter(prompt, valid_values=None):
+    while True:
+        result = input(prompt)[0].upper()
+        if valid_values and valid_values.find(result) >= 0:
+            return result
+        else:
+            print("That's not a valid choice.  Please try again.")
