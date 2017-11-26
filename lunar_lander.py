@@ -1,14 +1,30 @@
-# Ported from Basic Computer Games from David Ahl
-# Original game was TBD
+# Ported from Basic Computer Games by David Ahl
 
 from common_input import input_int
 from common import game_loop
 
 GRAVITY = 5
 MAX_BURN = 30
-START_HEIGHT = 500
+START_ALTITUDE = 500
 START_VELOCITY = 50
 START_FUEL = 120
+GOOD_LANDING = 4
+
+
+def show_instructions():
+    print(f"")
+    print(f"You are landing on the moon and have taken over manual control on final approach.")
+    print(f"You are at an altitude of {START_ALTITUDE} feet, and are descending at {START_VELOCITY} feet/sec.")
+    print(f"Acceleration due to gravity is {GRAVITY} feet/sec/sec.  You have {START_FUEL} units of fuel.")
+    print(f"")
+    print(f"You will be prompted every second for how much fuel to burn for that second.  One")
+    print(f"unit of fuel per second provides upward acceleration of 1 ft/sec/sec.  The maximum burn ")
+    print(f"rate per second is {MAX_BURN} units.  Your craft has been engineered to land safely at up to")
+    print(f"{GOOD_LANDING} feet per second.")
+    print(f"")
+    print(f"On each turn, you will see the current time, altitude, velocity, remaining fuel, and")
+    print(f"a graphical altitude indicator.  Best of luck!")
+    print(f"")
 
 
 def get_burn(fuel):
@@ -26,18 +42,41 @@ def sqrt(x):
     return x**0.5
 
 
+def show_status(time, altitude, velocity, fuel):
+    spacer = START_ALTITUDE // 80
+    template = "T:{0:>3}  A:{1:>6.1f}  V:{2:>5.1f}  F:{3:>4}   I{4}*"
+    disp = template.format(time, altitude, velocity, fuel, "-" * (int(altitude) // spacer))
+    print(disp)
+
+
+def show_landing_report(time, velocity):
+    print("Touchdown at {0:.3f} seconds.".format(time))
+    print("Landing velocity {0:.2f} ft/sec.".format(velocity))
+
+    if velocity <= GOOD_LANDING * 0.25:
+        print("Amazing landing!  The craft is in perfect shape.")
+    elif velocity <= GOOD_LANDING:
+        print("Good landing - proceed to lunar surface.")
+    elif velocity <= GOOD_LANDING * 2:
+        print("The craft is damaged.  Mission abort - return to orbit.")
+    elif velocity <= GOOD_LANDING * 4:
+        print("The craft is severly damaged.  Sorry - craft cannot return to orbit.")
+    else:
+        print("The craft broke up on impact.  Next of kin notified.")
+
+
 def play_game():
 
     # Starting flight parameters
     time = 0
-    altitude = START_HEIGHT
+    altitude = START_ALTITUDE
     velocity = START_VELOCITY
     fuel = START_FUEL
+    accel = 0
 
     # Each iteration through the loop represents one second
     while altitude > 0:
-        # TODO: make this look nicer
-        print(f"T:{time}, A:{altitude}, V:{velocity}, F:{fuel}")
+        show_status(time, altitude, velocity, fuel)
         burn = get_burn(fuel)
         fuel -= burn
         accel = GRAVITY - burn
@@ -60,9 +99,8 @@ def play_game():
         fraction = (-velocity+sqrt(velocity*velocity+altitude*(2*accel)))/accel
     time += fraction
     velocity = velocity+accel*fraction
-    print(f"Touchdown at {time} seconds.")
-    print(f"Landing velocity {velocity} ft/sec.")
+    show_landing_report(time, velocity)
 
 
-# TODO: show directions
+show_instructions()
 game_loop(play_game)
