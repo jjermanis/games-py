@@ -18,7 +18,7 @@ WALL_COLOR = (0, 0, 0)
 FLOOR_COLOR = (255, 255, 255)
 
 
-# TODO: put this into a class to clean up some logic (shared state, recalculated value)
+# TODO: put this into a class to clean up some logic (shared state, recalculated values)
 
 
 def generate_maze(width, height):
@@ -98,7 +98,7 @@ def hunt(grid):
     """
     for y in range(len(grid)):
         for x in range(len(grid[0])):
-            if (grid[y][x] == 0):
+            if grid[y][x] == 0:
                 neighbors = get_neighbors_random(x, y, grid)
                 for new_x, new_y, direction, opposite in neighbors:
                     if 1 <= new_x <= len(grid[0]) - 2 and 1 <= new_y <= len(grid) - 2 and grid[new_y][new_x] != 0:
@@ -162,4 +162,5 @@ def main():
 
 
 # Run the program
-main()
+if __name__ == "__main__":
+    main()

@@ -33,10 +33,11 @@ def play_game():
             break
 
 
-random.seed()
-print("Welcome to the game of One Hundred.  You and I will play against each other.  On each turn, we can play any")
-print("number between 1 and 10, which is added to the Total.  The player who gets the Total to 100 or more points")
-print("wins.")
-print("Warning: I am a tough opponent.  I can be beaten (every time), but you have to play perfectly.  Good luck!")
-print()
-game_loop(play_game)
+if __name__ == "__main__":
+    random.seed()
+    print("Welcome to the game of One Hundred.  You and I will play against each other.  On each turn, we can play any")
+    print("number between 1 and 10, which is added to the Total.  The player who gets the Total to 100 or more points")
+    print("wins.")
+    print("Warning: I am a tough opponent.  I can be beaten (every time), but you have to play perfectly.  Good luck!")
+    print()
+    game_loop(play_game)
