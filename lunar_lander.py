@@ -102,5 +102,6 @@ def play_game():
     show_landing_report(time, velocity)
 
 
-show_instructions()
-game_loop(play_game)
+if __name__ == "__main__":
+    show_instructions()
+    game_loop(play_game)

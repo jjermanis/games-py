@@ -25,5 +25,6 @@ def play_game():
     print("That's it - you got it!")
 
 
-random.seed()
-game_loop(play_game)
+if __name__ == "__main__":
+    random.seed()
+    game_loop(play_game)

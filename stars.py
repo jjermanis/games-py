@@ -30,8 +30,9 @@ def play_game():
     print("That's it - you got it!")
 
 
-random.seed()
-print(f"This is the game of Stars.  I will think of a number between {MIN} and {MAX}, and ask you to guess. After you")
-print("guess I will show you from 1 to 7 stars, depending on how close your guess was - 7 is very close, 1 is not")
-print("close at all.  Good luck!")
-game_loop(play_game)
+if __name__ == "__main__":
+    random.seed()
+    print(f"This is the game of Stars.  I will think of a number between {MIN} and {MAX}, and ask you to guess. After you")
+    print("guess I will show you from 1 to 7 stars, depending on how close your guess was - 7 is very close, 1 is not")
+    print("close at all.  Good luck!")
+    game_loop(play_game)
