@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import random
 from common_input import input_int, input_letter
 from common import game_loop
@@ -91,7 +92,7 @@ def play_game():
         player_move = input_letter("Will you take from Left, Right, or Both? ", "LRB")
 
 
-if __name__ == "__main__":
+def main():
     random.seed()
     print(f"Welcome to the game of Two Heaps.  There are two heaps, Left and Right, with {START_SIZE} gems each.  The ")
     print(f"winner is the player who takes the last of the gem(s), from all {2*START_SIZE} gems. On your turn, you can")
@@ -102,3 +103,7 @@ if __name__ == "__main__":
     print(f"Warning: I am a tough opponent.  I can be beaten (every time), but you have to play perfectly.  Good luck!")
     print()
     game_loop(play_game)
+
+
+if __name__ == "__main__":
+    main()

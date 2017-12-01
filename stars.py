@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import random
 from common_input import input_int
 from common import game_loop
@@ -30,9 +31,13 @@ def play_game():
     print("That's it - you got it!")
 
 
-if __name__ == "__main__":
+def main():
     random.seed()
-    print(f"This is the game of Stars.  I will think of a number between {MIN} and {MAX}, and ask you to guess. After you")
-    print("guess I will show you from 1 to 7 stars, depending on how close your guess was - 7 is very close, 1 is not")
-    print("close at all.  Good luck!")
+    print(f"This is the game of Stars.  I will think of a number between {MIN} and {MAX}, and ask you to guess. After ")
+    print("you guess I will show you from 1 to 7 stars, depending on how close your guess was - 7 is very close, ")
+    print("1 is not close at all.  Good luck!")
     game_loop(play_game)
+
+
+if __name__ == "__main__":
+    main()
