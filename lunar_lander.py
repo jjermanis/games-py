@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Ported from Basic Computer Games by David Ahl
 
 from common_input import input_int
@@ -102,6 +104,10 @@ def play_game():
     show_landing_report(time, velocity)
 
 
-if __name__ == "__main__":
+def main():
     show_instructions()
     game_loop(play_game)
+
+
+if __name__ == "__main__":
+    main()

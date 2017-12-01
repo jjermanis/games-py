@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Requires pillow, the Python3 version of PIL
 # Be sure to pip3 pillow
 from PIL import Image

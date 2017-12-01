@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import random
 from common_input import input_int
 from common import game_loop
@@ -25,6 +26,10 @@ def play_game():
     print("That's it - you got it!")
 
 
-if __name__ == "__main__":
+def main():
     random.seed()
     game_loop(play_game)
+
+
+if __name__ == "__main__":
+    main()

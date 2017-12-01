@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import random
 from common_input import input_int
 from common import game_loop
@@ -33,11 +34,14 @@ def play_game():
             break
 
 
-if __name__ == "__main__":
+def main():
     random.seed()
     print("Welcome to the game of One Hundred.  You and I will play against each other.  On each turn, we can play any")
     print("number between 1 and 10, which is added to the Total.  The player who gets the Total to 100 or more points")
     print("wins.")
     print("Warning: I am a tough opponent.  I can be beaten (every time), but you have to play perfectly.  Good luck!")
     print()
+
+
+if __name__ == "__main__":
     game_loop(play_game)
